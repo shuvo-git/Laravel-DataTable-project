@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Customer;
+use App\Department;
+use App\CustomerDepartment;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +18,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+
+
+
+Route::get('list',function(){
+    return response(CustomerDepartment::all(),200);
 });
+
+
