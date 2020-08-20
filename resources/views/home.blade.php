@@ -21,17 +21,46 @@
         
     </div>
 
+    <!-- Floating action button Code begins here -->
+    <a id="addCustomer" class="float">
+        <i class="fa fa-plus my-float"></i>
+      </a>
+
 
     <script>
+        var depts={};
+        function loadDeparments()
+        {
+            $.ajax({
+                url: 'api/department/',
+                type: 'GET',
+                success: function(result) {
+                    $.each( result, function( k, v) {
+                        depts[v.id] = v.department;
+                    });
+                    //console.log(depts);
+                },
+                error: function (data) { 
+                    
+                }
+                    
 
+            });
+        }
+        
         
         $( document ).ready(function() {
             
-            
+            loadDeparments();
 
             $('#example').DataTable({
-                
-                ajax:"api/list",
+                //"processing": true,
+                "serverSide": true,
+                ajax:{
+                    url: "api/list",
+                    type: "POST"
+                },
+                "deferRender": true,
                 columns: [
                     { data: "id"},
                     { data: "name" },
@@ -116,6 +145,45 @@
                     //$.MessageBox("Ok, Not Deleted.");
                 });
                 
+            });
+
+            $("#addCustomer").click(function(){
+
+                
+                $.MessageBox({
+                    buttonDone      : "Add",
+                    buttonFail      : "Cancel",
+                    message : "<b>Add Customer</b>",
+                    input   : {
+                        customerName     : {
+                            type         : "text",
+                            label        : "Customer Name:",
+                            title        : ""
+                        },
+                        selectDepartment : {
+                            type         : "select",
+                            label        : "Select Department Name:",
+                            title        : "",
+                            options      : depts
+                        }
+                    },
+                    top     : "auto"
+                }).done(function(data){
+                    $.ajax({
+                        url: 'api/customer',
+                        type: 'POST',
+                        data: data,
+                        success: function(result) {
+                            //$('#example').DataTable().ajax.reload();
+                            //$.MessageBox("Update Successful !!");
+                            console.log(result);
+                        },
+                        error: function (data) { 
+                            //$.MessageBox("There is a problem while updating your Data !!");
+                        }
+                    })
+                });
+
             });
 
             

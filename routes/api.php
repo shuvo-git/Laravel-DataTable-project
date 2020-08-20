@@ -18,19 +18,38 @@ use App\CustomerDepartment;
 |
 */
 
+Route::get('department',function(){
+    $department = DB::table('departments')
+    ->select('id','department')
+    ->get();
+
+    return response($department,200);
+});
+
+Route::post('customer',function(Request $request)
+{
+    $customer = Customer::create([
+        'name' => $request->customerName,
+    ]);
+
+    $customer_department =  CustomerDepartment::create([
+        'customer_id'  => $customer->id,
+        'department_id'=> $request->selectDepartment
+    ]);
 
 
+    return response($customer_department,200);
+});
 
-
-Route::get('list',function(){
-
-    $cd = DB::table('customer_departments')
-        ->join('customers', 'customer_departments.customer_id', '=', 'customers.id')
-        ->join('departments', 'customer_departments.department_id', '=', 'departments.id')
-        ->select('customer_departments.id', 'customers.name', 'departments.department')
-        ->get();
-        
-    return response(["data"=>$cd],200);
+Route::post('list',function(){
+    /**
+     * USED YAJRA laravel-datatables package for server side processing
+     */
+    return datatables(DB::table('customer_departments')
+    ->join('customers', 'customer_departments.customer_id', '=', 'customers.id')
+    ->join('departments', 'customer_departments.department_id', '=', 'departments.id')
+    ->select('customer_departments.id', 'customers.name', 'departments.department')
+    ->get())->toJson();
 });
 
 Route::delete('list/{id}', function(Request $request, $id) {
