@@ -4,6 +4,8 @@
 
     <div class="container">
         <div class="dt-table" id="table-div">
+            <h3>Customer List</h3>
+            <hr>
             <table id="example" class="display" style="width:100%">
                 <thead>
                     <tr>
@@ -36,13 +38,11 @@
                     { data: "department" },
                     { data: "null",render: function(data,type,row,meta){
                             return "<a href='#'>Edit</a> | <a href='#'>Delete</a>"; 
-                            //return "<form action=\"/admins/approve/" + row.id + "\" method=\"POST\">"+
-                            //            "<input type=\"hidden\" name=\"_method\" value=\"PUT\">";
                         } 
                     },
                     
                 ],
-                "ordering": false,
+                "ordering": true,
                 select: true
             });
 
@@ -102,11 +102,11 @@
                         type: 'PUT',
                         data: data,
                         success: function(result) {
-                            //$('#example').DataTable().ajax.reload();
-                            $.MessageBox("Update Successful : "+result.name +" and "+result.dept);
+                            $('#example').DataTable().ajax.reload();
+                            $.MessageBox("Update Successful !!");
                         },
                         error: function (data) { 
-                            $.MessageBox("There is a problem while updating your Data");
+                            $.MessageBox("There is a problem while updating your Data !!");
                         }
                          
 

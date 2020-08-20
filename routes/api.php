@@ -38,12 +38,18 @@ Route::delete('list/{id}', function(Request $request, $id) {
 });
 
 Route::put('list/{id}', function(Request $request, $id) {
-    //return response(["name"=> $request->name,"dept"=> $request->department],200);
-    DB:table('customer_departments')
-    ->where('customer_departments','=',$id)
-    ->join('customers', 'customer_departments.customer_id', '=', 'customers.id')
-    ->join('departments', 'customer_departments.department_id', '=', 'departments.id')
-    ->update();
+
+    $data = $request->validate([
+        'name'       => 'required|string|max:100',
+        'department' => 'required|string|max:100'
+    ]);
+    DB::table('customer_departments')
+        ->join('customers', 'customer_departments.customer_id', '=', 'customers.id')
+        ->join('departments', 'customer_departments.department_id', '=', 'departments.id')
+        ->where('customer_departments.id','=',$id)
+        ->update(['customers.name' => $request->name,'departments.department' => $request->department]);
+
+    return response(['message'=>"Update Successfull"],200);
 });
 
 

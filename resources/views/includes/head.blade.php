@@ -3,7 +3,7 @@
 <meta name="author" content="Jobayed Ullah">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-<title>BookWorm</title>
+<title>BanglaLink</title>
 
     
     
@@ -22,11 +22,11 @@
         .dt-table{
             margin-top: 10px;
             margin-bottom: 10px;
-            background: #fff; /*#dff5e5;*/
+            background: #fff;/*#ffe4d6;*/ 
             padding: 30px 15px 30px 15px;
-            border: #15a77d solid 1px;
+            border: #eb8634 solid 1px;
             border-radius: 7px;
-            color: green;
+            color: #eb8634;
             box-shadow: 2px 2px 3px #999;
         }
         .my-float{
@@ -35,7 +35,7 @@
         
 
         .footer{
-            background-color: #15a77d;
+            background-color: #f59649;
             padding: 50px;
         }
 
