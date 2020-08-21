@@ -94,7 +94,7 @@
                         url: 'api/list/'+rid,
                         type: 'DELETE',
                         success: function(result) {
-                            $('#example').DataTable().ajax.reload();
+                            $('#example').DataTable().ajax.reload(null,false);
                             $.MessageBox("Deletion Successful !");
                         },
                         error: function (data) { 
@@ -131,7 +131,7 @@
                         type: 'PUT',
                         data: data,
                         success: function(result) {
-                            $('#example').DataTable().ajax.reload();
+                            $('#example').DataTable().ajax.reload(null,false);
                             $.MessageBox("Update Successful !!");
                         },
                         error: function (data) { 
@@ -174,7 +174,7 @@
                         type: 'POST',
                         data: data,
                         success: function(result) {
-                            //$('#example').DataTable().ajax.reload();
+                            $('#example').DataTable().ajax.reload(null,false);
                             //$.MessageBox("Update Successful !!");
                             console.log(result);
                         },

@@ -18,57 +18,14 @@ use App\CustomerDepartment;
 |
 */
 
-Route::get('department',function(){
-    $department = DB::table('departments')
-    ->select('id','department')
-    ->get();
+Route::get('department','HomeRestController@show');
 
-    return response($department,200);
-});
+Route::post('customer','HomeRestController@create');
 
-Route::post('customer',function(Request $request)
-{
-    $customer = Customer::create([
-        'name' => $request->customerName,
-    ]);
+Route::post('list','HomeRestController@showList');
 
-    $customer_department =  CustomerDepartment::create([
-        'customer_id'  => $customer->id,
-        'department_id'=> $request->selectDepartment
-    ]);
+Route::delete('list/{id}', 'HomeRestController@destroy');
 
-
-    return response($customer_department,200);
-});
-
-Route::post('list',function(){
-    /**
-     * USED YAJRA laravel-datatables package for server side processing
-     */
-    return datatables(DB::table('customer_departments')
-    ->join('customers', 'customer_departments.customer_id', '=', 'customers.id')
-    ->join('departments', 'customer_departments.department_id', '=', 'departments.id')
-    ->select('customer_departments.id', 'customers.name', 'departments.department')
-    ->get())->toJson();
-});
-
-Route::delete('list/{id}', function(Request $request, $id) {
-    return CustomerDepartment::find($id)->delete();
-});
-
-Route::put('list/{id}', function(Request $request, $id) {
-
-    $data = $request->validate([
-        'name'       => 'required|string|max:100',
-        'department' => 'required|string|max:100'
-    ]);
-    DB::table('customer_departments')
-        ->join('customers', 'customer_departments.customer_id', '=', 'customers.id')
-        ->join('departments', 'customer_departments.department_id', '=', 'departments.id')
-        ->where('customer_departments.id','=',$id)
-        ->update(['customers.name' => $request->name,'departments.department' => $request->department]);
-
-    return response(['message'=>"Update Successfull"],200);
-});
+Route::put('list/{id}','HomeRestController@update');
 
 
