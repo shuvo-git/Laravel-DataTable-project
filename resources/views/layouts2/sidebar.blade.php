@@ -12,7 +12,7 @@
             <p>DASHBOARD</p>
           </li>
           <li class="nav-item">
-            <a href="CustomerList" class="nav-link active">
+            <a href="/" class="nav-link active">
                 <i class="nav-icon fa fa-file"></i>
                 <p>Customer List</p>
             </a>

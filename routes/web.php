@@ -13,5 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index');
-Route::get('/CustomerList', 'DashboardController@index');
+Route::get('/', 'DashboardController@index');
