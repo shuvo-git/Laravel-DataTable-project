@@ -19,13 +19,11 @@ In this simple project I have done the following things:
 - Make DashboardController 
 - installed Admin LTE theme in public folder
 - Made views:
-    views-----------
-            |----layouts2.blade.php
-                |------------header.blade.php
-                |------------sidebar.blade.php
-                |------------footer.blade.php
-                |------------master.blade.php
-            |----dashboard.blade.php
+    -- views/layouts2/header.blade.php
+    -- views/layouts2/sidebar.blade.php
+    -- views/layouts2/footer.blade.php
+    -- views/layouts2/master.blade.php
+    -- views/dashboard.blade.php
 
 - installed JQuery Messagebox plugin
 - Created HomeRestController
